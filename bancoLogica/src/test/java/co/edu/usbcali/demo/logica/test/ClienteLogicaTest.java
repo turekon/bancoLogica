@@ -42,7 +42,7 @@ public class ClienteLogicaTest {
 		Clientes clientes = new Clientes();
 		clientes.setCliId(cliId);
 		clientes.setCliDireccion("la dirección de mi casa");
-		clientes.setCliMail("andres.heredia@gmail.com");
+//		clientes.setCliMail("andres.heredia@gmail.com");
 		clientes.setCliNombre("Andres Mauricio Heredia");
 		clientes.setCliTelefono("55555555");
 		clientes.setTiposDocumentos(tipoDocumentoDAO.consultarPorId(10L));
