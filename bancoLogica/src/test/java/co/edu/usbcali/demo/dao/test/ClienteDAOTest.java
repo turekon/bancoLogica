@@ -40,7 +40,7 @@ public class ClienteDAOTest {
 	public void aTest() {
 		Clientes clientes = new Clientes();
 		clientes.setCliId(cliId);
-		clientes.setCliDireccion("la dirección de mi casa");
+		clientes.setCliDireccion("la direcciÃ³n de mi casa");
 		clientes.setCliMail("andres.heredia@gmail.com");
 		clientes.setCliNombre("Andres Mauricio Heredia");
 		clientes.setCliTelefono("55555555");
