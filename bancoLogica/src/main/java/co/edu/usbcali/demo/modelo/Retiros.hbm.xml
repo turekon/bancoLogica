@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 4, 2016 10:21:41 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.demo.modelo.Retiros" table="retiros" schema="public">
+        <composite-id name="id" class="co.edu.usbcali.demo.modelo.RetirosId">
+            <key-property name="retCodigo" type="long">
+                <column name="ret_codigo" precision="10" scale="0" />
+            </key-property>
+            <key-property name="cueNumero" type="string">
+                <column name="cue_numero" length="30" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="usuarios" class="co.edu.usbcali.demo.modelo.Usuarios" fetch="select">
+            <column name="usu_cedula" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="cuentas" class="co.edu.usbcali.demo.modelo.Cuentas" update="false" insert="false" fetch="select">
+            <column name="cue_numero" length="30" not-null="true" />
+        </many-to-one>
+        <property name="retValor" type="big_decimal">
+            <column name="ret_valor" precision="10" not-null="true" />
+        </property>
+        <property name="retFecha" type="timestamp">
+            <column name="ret_fecha" length="29" not-null="true" />
+        </property>
+        <property name="retDescripcion" type="string">
+            <column name="ret_descripcion" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
