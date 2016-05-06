@@ -17,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.ITipoUsuarioDAO;
 import co.edu.usbcali.demo.dao.IUsuarioDAO;
-import co.edu.usbcali.demo.modelo.Clientes;
-import co.edu.usbcali.demo.modelo.TiposUsuarios;
 import co.edu.usbcali.demo.modelo.Usuarios;
 
 @RunWith(SpringJUnit4ClassRunner.class)
