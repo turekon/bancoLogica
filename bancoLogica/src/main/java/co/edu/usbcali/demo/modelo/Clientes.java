@@ -27,17 +27,22 @@ public class Clientes implements java.io.Serializable {
 	@NotNull
 	@Digits(integer=10,fraction=0)
 	private long cliId;
+	
 	@NotNull
 	private TiposDocumentos tiposDocumentos;
+	
 	@NotNull
 	@Length(min=3,max=50)
 	private String cliNombre;
+	
 	@NotNull
 	@Length(min=3,max=50)
 	private String cliDireccion;
+	
 	@NotNull
 	@Length(min=3,max=50)
 	private String cliTelefono;
+	
 	@Email
 	@Length(min=3,max=50)
 	private String cliMail;
