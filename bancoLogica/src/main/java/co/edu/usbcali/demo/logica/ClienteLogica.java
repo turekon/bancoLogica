@@ -35,12 +35,10 @@ public class ClienteLogica implements IClienteLogica {
 	@Autowired
 	private Validator validator;
 	
-	@Override
-	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void grabar(Clientes clientes) throws Exception {
+	private void validador(Clientes entity) throws Exception {
 		StringBuilder stringBuilder = new StringBuilder();
 		
-		Set<ConstraintViolation<Clientes>> constraintViolations = validator.validate(clientes);
+		Set<ConstraintViolation<Clientes>> constraintViolations = validator.validate(entity);
 		if (constraintViolations.size() > 0) {
 			for (ConstraintViolation<Clientes> constraintViolation : constraintViolations) {
 				log.error(constraintViolation.getPropertyPath().toString());
@@ -52,6 +50,13 @@ public class ClienteLogica implements IClienteLogica {
 			}
 			throw new Exception(stringBuilder.toString()); 
 		}
+	}
+	
+	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void grabar(Clientes clientes) throws Exception {
+		
+		validador(clientes);
 		
 		TiposDocumentos tiposDocumentos = tipoDocumentoDAO.consultarPorId(clientes.getTiposDocumentos().getTdocCodigo());
 		if (tiposDocumentos == null) {
@@ -66,20 +71,8 @@ public class ClienteLogica implements IClienteLogica {
 	@Override
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void modificar(Clientes clientes) throws Exception {
-		StringBuilder stringBuilder = new StringBuilder();
 		
-		Set<ConstraintViolation<Clientes>> constraintViolations = validator.validate(clientes);
-		if (constraintViolations.size() > 0) {
-			for (ConstraintViolation<Clientes> constraintViolation : constraintViolations) {
-				log.error(constraintViolation.getPropertyPath().toString());
-				log.error(constraintViolation.getMessage());
-				stringBuilder.append(constraintViolation.getPropertyPath().toString());
-				stringBuilder.append("-");
-				stringBuilder.append(constraintViolation.getMessage());
-				stringBuilder.append(",");
-			}
-			throw new Exception(stringBuilder.toString()); 
-		}
+		validador(clientes);
 		
 		if (clientes.getTiposDocumentos() == null) {
 			throw new Exception("El tipo de documento es obligatorio");
@@ -98,20 +91,8 @@ public class ClienteLogica implements IClienteLogica {
 	@Override
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void borrar(Clientes clientes) throws Exception {
-		StringBuilder stringBuilder = new StringBuilder();
 		
-		Set<ConstraintViolation<Clientes>> constraintViolations = validator.validate(clientes);
-		if (constraintViolations.size() > 0) {
-			for (ConstraintViolation<Clientes> constraintViolation : constraintViolations) {
-				log.error(constraintViolation.getPropertyPath().toString());
-				log.error(constraintViolation.getMessage());
-				stringBuilder.append(constraintViolation.getPropertyPath().toString());
-				stringBuilder.append("-");
-				stringBuilder.append(constraintViolation.getMessage());
-				stringBuilder.append(",");
-			}
-			throw new Exception(stringBuilder.toString()); 
-		}
+		validador(clientes);
 		
 		Clientes entity = clienteDAO.consultarPorId(clientes.getCliId());
 		

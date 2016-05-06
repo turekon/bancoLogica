@@ -41,7 +41,7 @@ public class ClienteLogicaTest {
 	public void aTest() throws Exception {
 		Clientes clientes = new Clientes();
 		clientes.setCliId(cliId);
-		clientes.setCliDireccion("la dirección de mi casa");
+		clientes.setCliDireccion("la direcciï¿½n de mi casa");
 //		clientes.setCliMail("andres.heredia@gmail.com");
 		clientes.setCliNombre("Andres Mauricio Heredia");
 		clientes.setCliTelefono("55555555");

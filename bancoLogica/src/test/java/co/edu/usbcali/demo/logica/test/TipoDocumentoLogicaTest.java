@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.logica.ITipoDocumentoLogica;
 import co.edu.usbcali.demo.modelo.TiposDocumentos;
@@ -27,8 +29,8 @@ public class TipoDocumentoLogicaTest {
 	private Long tipoDocumentoId = 10L;
 
 	@Test
-	
-	public void dTest() throws Exception {
+	@Transactional(readOnly=true)
+	public void bTest() throws Exception {
 		TiposDocumentos tiposDocumentos = tipoDocumentoLogica.consultarPorId(tipoDocumentoId);
 		assertNotNull("El Tipo de documento no existe" , tiposDocumentos);
 		log.info(tiposDocumentos.getTdocNombre());
