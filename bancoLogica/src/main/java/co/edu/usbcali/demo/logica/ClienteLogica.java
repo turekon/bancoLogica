@@ -24,13 +24,13 @@ import co.edu.usbcali.demo.modelo.TiposDocumentos;
 @Scope("singleton")
 public class ClienteLogica implements IClienteLogica {
 
-	private static final Logger log = LoggerFactory.getLogger(TipoDocumentoLogicaTest.class);
+	private static final Logger log = LoggerFactory.getLogger(ClienteLogica.class);
 	
 	@Autowired
 	private IClienteDAO clienteDAO;
 	
 	@Autowired
-	private ITipoDocumentoDAO tipoDocumentoDAO;
+	private ITipoDocumentoLogica tipoDocumentoLogica;
 	
 	@Autowired
 	private Validator validator;
@@ -58,7 +58,7 @@ public class ClienteLogica implements IClienteLogica {
 		
 		validador(clientes);
 		
-		TiposDocumentos tiposDocumentos = tipoDocumentoDAO.consultarPorId(clientes.getTiposDocumentos().getTdocCodigo());
+		TiposDocumentos tiposDocumentos = tipoDocumentoLogica.consultarPorId(clientes.getTiposDocumentos().getTdocCodigo());
 		if (tiposDocumentos == null) {
 			throw new Exception("El tipo de documento no existe");
 		}
@@ -72,13 +72,9 @@ public class ClienteLogica implements IClienteLogica {
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void modificar(Clientes clientes) throws Exception {
 		
-		validador(clientes);
+		validador(clientes);		
 		
-		if (clientes.getTiposDocumentos() == null) {
-			throw new Exception("El tipo de documento es obligatorio");
-		}
-		
-		TiposDocumentos tiposDocumentos = tipoDocumentoDAO.consultarPorId(clientes.getTiposDocumentos().getTdocCodigo());
+		TiposDocumentos tiposDocumentos = tipoDocumentoLogica.consultarPorId(clientes.getTiposDocumentos().getTdocCodigo());
 		if (tiposDocumentos == null) {
 			throw new Exception("El tipo de documento no existe");
 		}

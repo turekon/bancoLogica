@@ -23,7 +23,7 @@ import co.edu.usbcali.demo.modelo.TiposDocumentos;
 @Scope("singleton")
 public class TipoDocumentoLogica implements ITipoDocumentoLogica {
 
-	private static final Logger log = LoggerFactory.getLogger(TipoDocumentoLogicaTest.class);
+	private static final Logger log = LoggerFactory.getLogger(TipoDocumentoLogica.class);
 	
 	@Autowired
 	private Validator validator;

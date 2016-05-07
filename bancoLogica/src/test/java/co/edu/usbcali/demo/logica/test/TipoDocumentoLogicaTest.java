@@ -28,6 +28,18 @@ public class TipoDocumentoLogicaTest {
 	
 	private Long tipoDocumentoId = 10L;
 
+//	@Test
+//	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+//	public void aTest() throws Exception {
+//		
+//		
+//		TiposDocumentos tiposDocumentos = new TiposDocumentos();
+//		tiposDocumentos.setTdocCodigo(this.tipoDocumentoId);
+//		tiposDocumentos.setTdocNombre("JUnit tipo");
+//		
+//		tipoDocumentoLogica.grabar(tiposDocumentos);
+//	}
+	
 	@Test
 	@Transactional(readOnly=true)
 	public void bTest() throws Exception {

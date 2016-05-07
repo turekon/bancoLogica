@@ -26,7 +26,6 @@ public class Retiros implements java.io.Serializable {
 	private Cuentas cuentas;
 	
 	@NotNull
-	@Digits(integer=10, fraction=0)
 	private BigDecimal retValor;
 	
 	@NotNull

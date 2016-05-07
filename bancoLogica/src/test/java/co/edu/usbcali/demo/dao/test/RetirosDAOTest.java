@@ -39,7 +39,7 @@ public class RetirosDAOTest {
 	@Autowired
 	private ICuentasDAO cuentasDAO;
 	
-	private long retCodigo = 99L;
+	private Long retCodigo = 99L;
 	private String cueNumero = "4008-5305-0010"; 
 			
 	@Test
@@ -71,7 +71,7 @@ public class RetirosDAOTest {
 		RetirosId retirosId = new RetirosId(this.retCodigo, this.cueNumero);
 		Retiros retiros = retirosDAO.consultarPorId(retirosId);
 		assertNotNull("El retiro no existe", retiros);
-		retiros.setRetDescripcion("Descripción modificada");
+		retiros.setRetDescripcion("Descripcion modificada");
 		retirosDAO.modificar(retiros);
 	}
 	
