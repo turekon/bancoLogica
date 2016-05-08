@@ -15,11 +15,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.usbcali.demo.dao.IClienteDAO;
-import co.edu.usbcali.demo.dao.ITipoDocumentoDAO;
 import co.edu.usbcali.demo.logica.IClienteLogica;
+import co.edu.usbcali.demo.logica.ITipoDocumentoLogica;
 import co.edu.usbcali.demo.modelo.Clientes;
-import co.edu.usbcali.demo.modelo.TiposDocumentos;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
@@ -32,7 +30,7 @@ public class ClienteLogicaTest {
 	private IClienteLogica clienteLogica;
 	
 	@Autowired
-	private ITipoDocumentoDAO tipoDocumentoDAO;
+	private ITipoDocumentoLogica tipoDocumentoLogica;
 	
 	private Long cliId = 14795636L;
 	
@@ -45,7 +43,7 @@ public class ClienteLogicaTest {
 //		clientes.setCliMail("andres.heredia@gmail.com");
 		clientes.setCliNombre("Andres Mauricio Heredia");
 		clientes.setCliTelefono("55555555");
-		clientes.setTiposDocumentos(tipoDocumentoDAO.consultarPorId(10L));
+		clientes.setTiposDocumentos(tipoDocumentoLogica.consultarPorId(10L));
 		
 		clienteLogica.grabar(clientes);
 		

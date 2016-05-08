@@ -1,4 +1,4 @@
-package co.edu.usbcali.demo.dao.test;
+package co.edu.usbcali.demo.logica.test;
 
 import static org.junit.Assert.*;
 
@@ -16,60 +16,61 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.ITipoUsuarioDAO;
+import co.edu.usbcali.demo.logica.ITipoUsuarioLogica;
 import co.edu.usbcali.demo.modelo.TiposUsuarios;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
 @Rollback(false)
-public class TipoUsuarioDAOTest {
+public class TipoUsuarioLogicaTest {
 	
-	private static final Logger log = LoggerFactory.getLogger(TipoUsuarioDAOTest.class);
+	private static final Logger log = LoggerFactory.getLogger(TipoUsuarioLogicaTest.class);
 	
 	@Autowired
-	private ITipoUsuarioDAO tipoUsuarioDAO;
+	private ITipoUsuarioLogica tipoUsuarioLogica;
 	
 	private long idTipoUsuario = 99L;
 
 	@Test
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
-	public void aTest() {
+	public void aTest() throws Exception {
 		TiposUsuarios tiposUsuarios = new TiposUsuarios();
 		tiposUsuarios.setTusuCodigo(this.idTipoUsuario);
 		tiposUsuarios.setTusuNombre("TIPO USUARIO JUNIT");
 		
-		tipoUsuarioDAO.grabar(tiposUsuarios);
+		tipoUsuarioLogica.grabar(tiposUsuarios);
 	}
 	
 	@Test
 	@Transactional(readOnly=false)
-	public void bTest(){
-		TiposUsuarios tiposUsuarios = tipoUsuarioDAO.consultarPorId(this.idTipoUsuario);
+	public void bTest() throws Exception {
+		TiposUsuarios tiposUsuarios = tipoUsuarioLogica.consultarPorId(this.idTipoUsuario);
 		assertNotNull("El tipo de usuario no existe", tiposUsuarios);
 		log.info(tiposUsuarios.getTusuCodigo() + " - " + tiposUsuarios.getTusuNombre());
 	}
 	
 	@Test
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
-	public void cTest(){
-		TiposUsuarios tiposUsuarios = tipoUsuarioDAO.consultarPorId(this.idTipoUsuario);
+	public void cTest() throws Exception {
+		TiposUsuarios tiposUsuarios = tipoUsuarioLogica.consultarPorId(this.idTipoUsuario);
 		assertNotNull("El tipo de usuario no existe", tiposUsuarios);
 		tiposUsuarios.setTusuNombre("tipo usuario Junit");
-		tipoUsuarioDAO.modificar(tiposUsuarios);
+		tipoUsuarioLogica.modificar(tiposUsuarios);
 	}
 	
 	@Test
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
-	public void dTest(){
-		TiposUsuarios tiposUsuarios = tipoUsuarioDAO.consultarPorId(this.idTipoUsuario);
+	public void dTest() throws Exception {
+		TiposUsuarios tiposUsuarios = tipoUsuarioLogica.consultarPorId(this.idTipoUsuario);
 		assertNotNull("El tipo de usuario no existe", tiposUsuarios);
 		
-		tipoUsuarioDAO.borrar(tiposUsuarios);
+		tipoUsuarioLogica.borrar(tiposUsuarios);
 	}
 	
 	@Test
 	@Transactional(readOnly=false)
-	public void eTest(){
-		List<TiposUsuarios> losTipoUsuario = tipoUsuarioDAO.consultarTodos();
+	public void eTest() throws Exception {
+		List<TiposUsuarios> losTipoUsuario = tipoUsuarioLogica.consultarTodos();
 		for (TiposUsuarios tiposUsuarios : losTipoUsuario) {
 			log.info(tiposUsuarios.getTusuCodigo() + " - " + tiposUsuarios.getTusuNombre());
 		}

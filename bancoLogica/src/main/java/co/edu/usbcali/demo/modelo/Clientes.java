@@ -45,7 +45,7 @@ public class Clientes implements java.io.Serializable {
 	private String cliTelefono;
 	
 	@Email
-	@Length(min=3,max=50)
+	@Length(max=50)
 	private String cliMail;
 	
 	private Set<Cuentas> cuentases = new HashSet<Cuentas>(0);

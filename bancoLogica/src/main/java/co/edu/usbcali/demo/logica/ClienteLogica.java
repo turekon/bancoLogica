@@ -88,15 +88,13 @@ public class ClienteLogica implements IClienteLogica {
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void borrar(Clientes clientes) throws Exception {
 		
-		validador(clientes);
-		
 		Clientes entity = clienteDAO.consultarPorId(clientes.getCliId());
 		
 		if (entity == null) {
 			throw new Exception("El cliente que desea eliminar no existe");
 		}
 		
-		clienteDAO.borrar(clientes);
+		clienteDAO.borrar(entity);
 	}
 
 	@Override
