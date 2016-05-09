@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.IUsuarioDAO;
-import co.edu.usbcali.demo.modelo.Clientes;
 import co.edu.usbcali.demo.modelo.TiposUsuarios;
 import co.edu.usbcali.demo.modelo.Usuarios;
 
@@ -54,6 +53,7 @@ public class UsuarioLogica implements IUsuarioLogica {
 	@Override
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void grabar(Usuarios usuarios) throws Exception {
+		
 		validador(usuarios);
 		
 		TiposUsuarios tiposUsuarios = tipoUsuarioLogica.consultarPorId(usuarios.getTiposUsuarios().getTusuCodigo());
@@ -69,6 +69,7 @@ public class UsuarioLogica implements IUsuarioLogica {
 	@Override
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void modificar(Usuarios usuarios) throws Exception {
+		
 		validador(usuarios);
 		
 		if (usuarios.getTiposUsuarios() == null) {
@@ -80,15 +81,22 @@ public class UsuarioLogica implements IUsuarioLogica {
 			throw new Exception("El tipo de usuario es obligatorio");
 		}
 		
+		usuarios.setTiposUsuarios(tiposUsuarios);
+		
 		usuarioDAO.modificar(usuarios);
 	}
 
 	@Override
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void borrar(Usuarios usuarios) throws Exception {
-		validador(usuarios);
 		
-		usuarioDAO.borrar(usuarios);
+		Usuarios entity = usuarioDAO.consultarPorId(usuarios.getUsuCedula());
+		
+		if (entity == null) {
+			throw new Exception("El Usuario que desea eliminar no existe");
+		}
+		
+		usuarioDAO.borrar(entity);
 	}
 
 	@Override
