@@ -7,11 +7,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import co.edu.usbcali.demo.logica.IClienteLogica;
+import co.edu.usbcali.demo.logica.IConsignacionesLogica;
+import co.edu.usbcali.demo.logica.ICuentasLogica;
+import co.edu.usbcali.demo.logica.IRetirosLogica;
 import co.edu.usbcali.demo.logica.ITipoDocumentoLogica;
 import co.edu.usbcali.demo.logica.ITipoUsuarioLogica;
 import co.edu.usbcali.demo.logica.IUsuarioLogica;
 import co.edu.usbcali.demo.logica.UsuarioLogica;
 import co.edu.usbcali.demo.modelo.Clientes;
+import co.edu.usbcali.demo.modelo.Consignaciones;
+import co.edu.usbcali.demo.modelo.ConsignacionesId;
+import co.edu.usbcali.demo.modelo.Cuentas;
+import co.edu.usbcali.demo.modelo.Retiros;
+import co.edu.usbcali.demo.modelo.RetirosId;
 import co.edu.usbcali.demo.modelo.TiposDocumentos;
 import co.edu.usbcali.demo.modelo.TiposUsuarios;
 import co.edu.usbcali.demo.modelo.Usuarios;
@@ -31,6 +39,15 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	
 	@Autowired
 	private ITipoUsuarioLogica tipoUsuarioLogica;
+	
+	@Autowired
+	private ICuentasLogica cuentasLogica;
+	
+	@Autowired
+	private IRetirosLogica retirosLogica;
+	
+	@Autowired
+	private IConsignacionesLogica consignacionesLogica;
  	
 	@Override
 	public void grabarClientes(Clientes clientes) throws Exception {
@@ -130,6 +147,81 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	@Override
 	public List<TiposUsuarios> consultarTodosTiposUsuarios() throws Exception {
 		return tipoUsuarioLogica.consultarTodos();
+	}
+
+	@Override
+	public void grabarCuentas(Cuentas cuentas) throws Exception {
+		cuentasLogica.grabar(cuentas);
+	}
+
+	@Override
+	public void modificarCuentas(Cuentas cuentas) throws Exception {
+		cuentasLogica.modificar(cuentas);
+	}
+
+	@Override
+	public void borrarCuentas(Cuentas cuentas) throws Exception {
+		cuentasLogica.borrar(cuentas);
+	}
+
+	@Override
+	public Cuentas consultarCuentasPorId(String id) throws Exception {
+		return cuentasLogica.consultarPorId(id);
+	}
+
+	@Override
+	public List<Cuentas> consultarTodosCuentas() throws Exception {
+		return cuentasLogica.consultarTodos();
+	}
+
+	@Override
+	public void grabarRetiros(Retiros retiros) throws Exception {
+		retirosLogica.grabar(retiros);
+	}
+
+	@Override
+	public void modificarRetiros(Retiros retiros) throws Exception {
+		retirosLogica.modificar(retiros);
+	}
+
+	@Override
+	public void borrarRetiros(Retiros retiros) throws Exception {
+		retirosLogica.borrar(retiros);
+	}
+
+	@Override
+	public Retiros consultarRetirosPorId(RetirosId retirosId) throws Exception {
+		return retirosLogica.consultarPorId(retirosId);
+	}
+
+	@Override
+	public List<Retiros> consultarTodosRetiros() throws Exception {
+		return retirosLogica.consultarTodos();
+	}
+
+	@Override
+	public void grabarConsignaciones(Consignaciones consignaciones) throws Exception {
+		consignacionesLogica.grabar(consignaciones);
+	}
+
+	@Override
+	public void modificarConsignaciones(Consignaciones consignaciones) throws Exception {
+		consignacionesLogica.modificar(consignaciones);
+	}
+
+	@Override
+	public void borrarConsignaciones(Consignaciones consignaciones) throws Exception {
+		consignacionesLogica.borrar(consignaciones);
+	}
+
+	@Override
+	public Consignaciones consultarConsignacionesPorId(ConsignacionesId consignacionesId) throws Exception {
+		return consignacionesLogica.consultarPorId(consignacionesId);
+	}
+
+	@Override
+	public List<Consignaciones> consultarTodosConsignaciones() throws Exception {
+		return consignacionesLogica.consultarTodos();
 	}
 
 }
