@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.IRetirosDAO;
 import co.edu.usbcali.demo.modelo.Cuentas;
@@ -54,6 +56,7 @@ public class RetirosLogica implements IRetirosLogica {
 	}
 	
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void grabar(Retiros retiros) throws Exception {
 		
 		validador(retiros);
@@ -84,6 +87,7 @@ public class RetirosLogica implements IRetirosLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void modificar(Retiros retiros) throws Exception {
 		
 		validador(retiros);
@@ -113,6 +117,7 @@ public class RetirosLogica implements IRetirosLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void borrar(Retiros retiros) throws Exception {
 		Retiros entity = retirosDAO.consultarPorId(retiros.getId());
 		
@@ -124,11 +129,13 @@ public class RetirosLogica implements IRetirosLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Retiros consultarPorId(RetirosId retirosId) throws Exception {
 		return retirosDAO.consultarPorId(retirosId);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Retiros> consultarTodos() throws Exception {
 		return retirosDAO.consultarTodos();
 	}

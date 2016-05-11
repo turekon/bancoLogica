@@ -34,12 +34,14 @@ public class CuentasDAOTest {
 	private IClienteDAO clienteDAO;
 	
 	private String idCuenta = "9999-9999-9999";
+	
+	private Long idCliente = 101234L;
 
 	@Test
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public void aTest() {
 		Cuentas cuentas = new Cuentas();
-		cuentas.setClientes(clienteDAO.consultarPorId(101234L));
+		cuentas.setClientes(clienteDAO.consultarPorId(this.idCliente));
 		cuentas.setCueActiva("S");
 		cuentas.setCueClave("9999");
 		cuentas.setCueNumero(this.idCuenta);
@@ -79,6 +81,15 @@ public class CuentasDAOTest {
 		List<Cuentas> lasCuentas = cuentasDAO.consultarTodos();
 		for (Cuentas cuentas : lasCuentas) {
 			log.info(cuentas.getCueNumero() + " - " + cuentas.getCueSaldo());
+		}
+	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void fTest(){
+		List<Cuentas> lasCuentas = cuentasDAO.consultarCuentasPorCliente(this.idCliente);
+		for (Cuentas cuentas : lasCuentas) {
+			log.info(cuentas.getClientes().getCliId() + " - " + cuentas.getClientes().getCliNombre() + " - " + cuentas.getCueNumero() + " - " + cuentas.getCueSaldo());
 		}
 	}
 	

@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.ICuentasDAO;
 import co.edu.usbcali.demo.modelo.Clientes;
@@ -50,6 +52,7 @@ public class CuentasLogica implements ICuentasLogica {
 	}
 	
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void grabar(Cuentas cuentas) throws Exception {
 		
 		validador(cuentas);
@@ -70,6 +73,7 @@ public class CuentasLogica implements ICuentasLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void modificar(Cuentas cuentas) throws Exception {
 		
 		validador(cuentas);
@@ -89,6 +93,7 @@ public class CuentasLogica implements ICuentasLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void borrar(Cuentas cuentas) throws Exception {
 		Cuentas entity = cuentasDAO.consultarPorId(cuentas.getCueNumero());
 		
@@ -100,13 +105,21 @@ public class CuentasLogica implements ICuentasLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Cuentas consultarPorId(String id) throws Exception {
 		return cuentasDAO.consultarPorId(id);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Cuentas> consultarTodos() throws Exception {
 		return cuentasDAO.consultarTodos();
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) throws Exception {
+		return cuentasDAO.consultarCuentasPorCliente(idCliente);
 	}
 
 }

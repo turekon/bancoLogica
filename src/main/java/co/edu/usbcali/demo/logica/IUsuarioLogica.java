@@ -10,4 +10,5 @@ public interface IUsuarioLogica {
 	public void borrar(Usuarios usuarios) throws Exception;
 	public Usuarios consultarPorId(long id) throws Exception;
 	public List<Usuarios> consultarTodos() throws Exception;
+	public List<Usuarios> consultarUsuariosPorTipoUsuario(Long tusuCodigo) throws Exception;
 }

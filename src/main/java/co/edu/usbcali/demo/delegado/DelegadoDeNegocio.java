@@ -224,4 +224,14 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 		return consignacionesLogica.consultarTodos();
 	}
 
+	@Override
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) throws Exception {
+		return cuentasLogica.consultarCuentasPorCliente(idCliente);
+	}
+
+	@Override
+	public List<Usuarios> consultarUsuariosPorTipoUsuario(Long tusuCodigo) throws Exception {
+		return usuarioLogica.consultarUsuariosPorTipoUsuario(tusuCodigo);
+	}
+
 }

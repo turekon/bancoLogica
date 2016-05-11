@@ -83,5 +83,14 @@ public class UsuarioLogicaTest {
 			log.info(usuarios.getUsuLogin() + " - " + usuarios.getUsuNombre());
 		}
 	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void fTest() throws Exception {
+		List<Usuarios> losUsuarios = usuarioLogica.consultarUsuariosPorTipoUsuario(10L);
+		for (Usuarios usuarios : losUsuarios) {
+			log.info(usuarios.getTiposUsuarios().getTusuNombre() + " - " + usuarios.getUsuLogin() + " - " + usuarios.getUsuNombre());
+		}
+	}
 
 }

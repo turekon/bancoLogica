@@ -35,11 +35,13 @@ public class CuentasLogicTest {
 	
 	private String cuentaNumero = "9999-9999-9999";
 	
+	private Long idCliente = 101234L;
+	
 	@Test
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public void aTest() throws Exception {
 		Cuentas cuentas = new Cuentas();
-		cuentas.setClientes(clienteLogica.consultarPorId(101234L));
+		cuentas.setClientes(clienteLogica.consultarPorId(this.idCliente));
 		cuentas.setCueActiva("S");
 		cuentas.setCueClave("1234");
 		cuentas.setCueNumero(cuentaNumero);
@@ -80,6 +82,15 @@ public class CuentasLogicTest {
 		List<Cuentas> lasCuentas = cuentasLogica.consultarTodos();
 		for (Cuentas cuentas : lasCuentas) {
 			log.info(cuentas.getCueNumero() + " - " + cuentas.getCueSaldo());
+		}
+	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void fTest() throws Exception {
+		List<Cuentas> lasCuentas = cuentasLogica.consultarCuentasPorCliente(this.idCliente);
+		for (Cuentas cuentas : lasCuentas) {
+			log.info(cuentas.getClientes().getCliId() + " - " + cuentas.getClientes().getCliNombre() + " - " + cuentas.getCueNumero() + " - " + cuentas.getCueSaldo());
 		}
 	}
 

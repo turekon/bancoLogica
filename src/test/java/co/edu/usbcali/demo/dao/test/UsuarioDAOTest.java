@@ -80,4 +80,13 @@ public class UsuarioDAOTest {
 			log.info(usuarios.getUsuLogin() + " - " + usuarios.getUsuNombre());
 		}
 	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void fTest() {
+		List<Usuarios> losUsuarios = usuarioDAO.consultarUsuariosPorTipoUsuario(10L);
+		for (Usuarios usuarios : losUsuarios) {
+			log.info(usuarios.getTiposUsuarios().getTusuNombre() + " - " + usuarios.getUsuLogin() + " - " + usuarios.getUsuNombre());
+		}
+	}
 }

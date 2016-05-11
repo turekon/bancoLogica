@@ -111,4 +111,10 @@ public class UsuarioLogica implements IUsuarioLogica {
 		return usuarioDAO.consultarTodos();
 	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public List<Usuarios> consultarUsuariosPorTipoUsuario(Long tusuCodigo) throws Exception {
+		return usuarioDAO.consultarUsuariosPorTipoUsuario(tusuCodigo);
+	}
+
 }

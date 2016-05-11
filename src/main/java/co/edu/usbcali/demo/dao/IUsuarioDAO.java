@@ -2,6 +2,7 @@ package co.edu.usbcali.demo.dao;
 
 import java.util.List;
 
+import co.edu.usbcali.demo.modelo.TiposUsuarios;
 import co.edu.usbcali.demo.modelo.Usuarios;
 
 public interface IUsuarioDAO {
@@ -10,4 +11,5 @@ public interface IUsuarioDAO {
 	public void borrar(Usuarios usuarios);
 	public Usuarios consultarPorId(long id);
 	public List<Usuarios> consultarTodos();
+	public List<Usuarios> consultarUsuariosPorTipoUsuario(Long tusuCodigo);
 }

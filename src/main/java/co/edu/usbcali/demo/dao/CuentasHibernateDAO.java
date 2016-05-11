@@ -3,10 +3,12 @@ package co.edu.usbcali.demo.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import co.edu.usbcali.demo.modelo.Clientes;
 import co.edu.usbcali.demo.modelo.Cuentas;
 
 @Repository
@@ -39,6 +41,11 @@ public class CuentasHibernateDAO implements ICuentasDAO {
 	@Override
 	public List<Cuentas> consultarTodos() {
 		return sessionFactory.getCurrentSession().createCriteria(Cuentas.class).list();
+	}
+	
+	@Override
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) {
+		return sessionFactory.getCurrentSession().createCriteria(Cuentas.class).add(Restrictions.eq("clientes.cliId", idCliente)).list();
 	}
 
 }

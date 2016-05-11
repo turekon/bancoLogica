@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.IConsignacionesDAO;
 import co.edu.usbcali.demo.modelo.Consignaciones;
@@ -54,6 +56,7 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	}
 	
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void grabar(Consignaciones consignaciones) throws Exception {
 		validador(consignaciones);
 		
@@ -82,6 +85,7 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void modificar(Consignaciones consignaciones) throws Exception {
 		validador(consignaciones);
 		
@@ -110,6 +114,7 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void borrar(Consignaciones consignaciones) throws Exception {
 		Consignaciones entity = consignacionesDAO.consultarPorId(consignaciones.getId());
 		
@@ -121,11 +126,13 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Consignaciones consultarPorId(ConsignacionesId consignacionesId) throws Exception {
 		return consignacionesDAO.consultarPorId(consignacionesId);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Consignaciones> consultarTodos() throws Exception {
 		return consignacionesDAO.consultarTodos();
 	}
