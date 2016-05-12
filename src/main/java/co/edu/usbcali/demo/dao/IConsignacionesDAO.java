@@ -12,5 +12,6 @@ public interface IConsignacionesDAO {
 	public void borrar(Consignaciones consignaciones);
 	public Consignaciones consultarPorId(ConsignacionesId consignacionesId);
 	public List<Consignaciones> consultarTodos();
-	
+	public Long consultarMaxConsecutivo();
+	public Long consultarMaxConsecutivo(String cueNumero);
 }

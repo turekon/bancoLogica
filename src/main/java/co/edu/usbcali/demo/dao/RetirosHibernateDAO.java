@@ -3,10 +3,13 @@ package co.edu.usbcali.demo.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import co.edu.usbcali.demo.modelo.Consignaciones;
 import co.edu.usbcali.demo.modelo.Retiros;
 import co.edu.usbcali.demo.modelo.RetirosId;
 
@@ -40,6 +43,16 @@ public class RetirosHibernateDAO implements IRetirosDAO {
 	@Override
 	public List<Retiros> consultarTodos() {
 		return sessionFactory.getCurrentSession().createCriteria(Retiros.class).list();
+	}
+
+	@Override
+	public Long consultarMaxConsecutivo() {
+		return (Long) sessionFactory.getCurrentSession().createCriteria(Retiros.class).setProjection(Projections.max("id.retCodigo")).uniqueResult();
+	}
+
+	@Override
+	public Long consultarMaxConsecutivo(String cueNumero) {
+		return (Long) sessionFactory.getCurrentSession().createCriteria(Retiros.class).setProjection(Projections.max("id.retCodigo")).add(Restrictions.eq("id.cueNumero", cueNumero)).uniqueResult();
 	}
 
 }

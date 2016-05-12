@@ -13,4 +13,6 @@ public interface IRetirosLogica {
 	public void borrar(Retiros retiros) throws Exception;
 	public Retiros consultarPorId(RetirosId retirosId) throws Exception;
 	public List<Retiros> consultarTodos() throws Exception;
+	public Long consultarMaxConsecutivo() throws Exception;
+	public Long consultarMaxConsecutivo(String cueNumero) throws Exception;
 }

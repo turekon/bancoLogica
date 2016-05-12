@@ -3,6 +3,9 @@ package co.edu.usbcali.demo.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -41,5 +44,17 @@ public class ConsignacionesHibernateDAO implements IConsignacionesDAO {
 	public List<Consignaciones> consultarTodos() {
 		return sessionFactory.getCurrentSession().createCriteria(Consignaciones.class).list();
 	}
+
+	@Override
+	public Long consultarMaxConsecutivo() {
+		return (Long) sessionFactory.getCurrentSession().createCriteria(Consignaciones.class).setProjection(Projections.max("id.conCodigo")).uniqueResult();
+	}
+
+	@Override
+	public Long consultarMaxConsecutivo(String cueNumero) {
+		return (Long) sessionFactory.getCurrentSession().createCriteria(Consignaciones.class).setProjection(Projections.max("id.conCodigo")).add(Restrictions.eq("id.cueNumero", cueNumero)).uniqueResult();
+	}
+	
+	
 
 }

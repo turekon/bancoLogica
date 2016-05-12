@@ -91,5 +91,19 @@ public class ConsignacionesLogicaTest {
 			log.info(consignaciones.getCuentas().getCueNumero() + " - " + consignaciones.getConDescripcion() + " - " + consignaciones.getConValor());
 		}
 	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void fTest() throws Exception {
+		log.info("El consecutivo global es: " + consignacionesLogica.consultarMaxConsecutivo().toString());
+	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void gTest() throws Exception {
+		log.info("El consecutivo para la cuenta " + this.cuentaNumero + " es : " + consignacionesLogica.consultarMaxConsecutivo(this.cuentaNumero).toString());
+		log.info("El consecutivo para la cuenta 4008-5305-0080 es : " + consignacionesLogica.consultarMaxConsecutivo("4008-5305-0080").toString());
+		log.info("El consecutivo para la cuenta 4008-5305-0015 es : " + consignacionesLogica.consultarMaxConsecutivo("4008-5305-0015").toString());
+	}
 
 }

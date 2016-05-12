@@ -13,4 +13,6 @@ public interface IRetirosDAO {
 	public void borrar(Retiros retiros);
 	public Retiros consultarPorId(RetirosId retirosId);
 	public List<Retiros> consultarTodos();
+	public Long consultarMaxConsecutivo();
+	public Long consultarMaxConsecutivo(String cueNumero);
 }

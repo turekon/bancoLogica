@@ -140,4 +140,16 @@ public class RetirosLogica implements IRetirosLogica {
 		return retirosDAO.consultarTodos();
 	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public Long consultarMaxConsecutivo() throws Exception {
+		return retirosDAO.consultarMaxConsecutivo();
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Long consultarMaxConsecutivo(String cueNumero) throws Exception {
+		return retirosDAO.consultarMaxConsecutivo(cueNumero);
+	}
+
 }

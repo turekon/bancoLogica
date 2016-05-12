@@ -93,6 +93,17 @@ public class RetirosDAOTest {
 		}
 	}
 	
+	@Test
+	@Transactional(readOnly=true)
+	public void fTest() {
+		log.info("El consecutivo global es: " + retirosDAO.consultarMaxConsecutivo().toString());
+	}
 	
+	@Test
+	@Transactional(readOnly=true)
+	public void gTest() {
+		log.info("El consecutivo para la cuenta " + this.cueNumero + " es : " + retirosDAO.consultarMaxConsecutivo(this.cueNumero).toString());
+		log.info("El consecutivo para la cuenta 4008-5305-0080 es : " + retirosDAO.consultarMaxConsecutivo("4008-5305-0080").toString());
+	}
 
 }

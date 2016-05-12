@@ -234,4 +234,24 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 		return usuarioLogica.consultarUsuariosPorTipoUsuario(tusuCodigo);
 	}
 
+	@Override
+	public Long consultarMaxConsecutivoConsignaciones() throws Exception {
+		return consignacionesLogica.consultarMaxConsecutivo();
+	}
+
+	@Override
+	public Long consultarMaxConsecutivoConsignaciones(String cueNumero) throws Exception {
+		return consignacionesLogica.consultarMaxConsecutivo(cueNumero);
+	}
+
+	@Override
+	public Long consultarMaxConsecutivoRetiros() throws Exception {
+		return retirosLogica.consultarMaxConsecutivo();
+	}
+
+	@Override
+	public Long consultarMaxConsecutivoRetiros(String cueNumero) throws Exception {
+		return retirosLogica.consultarMaxConsecutivo(cueNumero);
+	}
+
 }

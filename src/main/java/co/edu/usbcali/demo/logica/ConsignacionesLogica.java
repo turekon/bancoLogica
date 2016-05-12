@@ -137,4 +137,16 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 		return consignacionesDAO.consultarTodos();
 	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public Long consultarMaxConsecutivo() throws Exception {
+		return consignacionesDAO.consultarMaxConsecutivo();
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Long consultarMaxConsecutivo(String cueNumero) throws Exception {
+		return consignacionesDAO.consultarMaxConsecutivo(cueNumero);
+	}
+
 }

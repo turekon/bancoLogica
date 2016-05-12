@@ -83,8 +83,16 @@ public interface IDelegadoDeNegocio {
 	public Consignaciones consultarConsignacionesPorId(ConsignacionesId consignacionesId) throws Exception;
 
 	public List<Consignaciones> consultarTodosConsignaciones() throws Exception;
-	
+
 	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) throws Exception;
-	
+
 	public List<Usuarios> consultarUsuariosPorTipoUsuario(Long tusuCodigo) throws Exception;
+
+	public Long consultarMaxConsecutivoConsignaciones() throws Exception;
+
+	public Long consultarMaxConsecutivoConsignaciones(String cueNumero) throws Exception;
+
+	public Long consultarMaxConsecutivoRetiros() throws Exception;
+
+	public Long consultarMaxConsecutivoRetiros(String cueNumero) throws Exception;
 }

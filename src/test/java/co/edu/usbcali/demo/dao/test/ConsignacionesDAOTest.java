@@ -93,12 +93,25 @@ public class ConsignacionesDAOTest {
 	}
 	
 	@Test
-	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	@Transactional(readOnly=true)
 	public void eTest() {
 		List<Consignaciones> lasConsignaciones = consignacionesDAO.consultarTodos();
 		for (Consignaciones consignaciones : lasConsignaciones) {
 			log.info(consignaciones.getId().getConCodigo() + " - " + consignaciones.getConDescripcion() + " - " + consignaciones.getConDescripcion());
 		}
+	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void fTest() {
+		log.info("El consecutivo global es: " + consignacionesDAO.consultarMaxConsecutivo().toString());
+	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void gTest() {
+		log.info("El consecutivo para la cuenta " + this.idCuenta + " es : " + consignacionesDAO.consultarMaxConsecutivo(this.idCuenta).toString());
+		log.info("El consecutivo para la cuenta 4008-5305-0080 es : " + consignacionesDAO.consultarMaxConsecutivo("4008-5305-0080").toString());
 	}
 
 }
