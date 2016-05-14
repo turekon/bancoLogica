@@ -118,8 +118,8 @@ public class CuentasLogica implements ICuentasLogica {
 	
 	@Override
 	@Transactional(readOnly=true)
-	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) throws Exception {
-		return cuentasDAO.consultarCuentasPorCliente(idCliente);
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente, String cueActiva) throws Exception {
+		return cuentasDAO.consultarCuentasPorCliente(idCliente, cueActiva);
 	}
 
 }

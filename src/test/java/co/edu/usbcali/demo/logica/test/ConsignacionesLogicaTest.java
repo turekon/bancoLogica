@@ -41,7 +41,7 @@ public class ConsignacionesLogicaTest {
 	private IUsuarioLogica usuarioLogica;
 	
 	private Long consignacionID = 99L; 
-	private String cuentaNumero = "4008-5305-0010";
+	private String cuentaNumero = "4008-5305-0020";
 	private Long usuarioCedula = 10L;
 	
 	@Test
@@ -50,7 +50,7 @@ public class ConsignacionesLogicaTest {
 		Consignaciones consignaciones = new Consignaciones();
 		consignaciones.setConDescripcion("Consignacion de prueba");
 		consignaciones.setConFecha(new Date());
-		consignaciones.setConValor(new BigDecimal(240000));
+		consignaciones.setConValor(new BigDecimal("240000.00"));
 		consignaciones.setCuentas(cuentasLogica.consultarPorId(this.cuentaNumero));
 		consignaciones.setId(new ConsignacionesId(this.consignacionID, this.cuentaNumero));
 		consignaciones.setUsuarios(usuarioLogica.consultarPorId(this.usuarioCedula));

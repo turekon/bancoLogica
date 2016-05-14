@@ -40,7 +40,7 @@ public class RetirosLogicaTest {
 	private ICuentasLogica cuentasLogica;
 	
 	private Long retirosID = 99L;
-	private String cuentaNumero = "4008-5305-0010";
+	private String cuentaNumero = "4008-5305-0020";
 	private Long usuarioCedula = 10L;
 	
 	@Test

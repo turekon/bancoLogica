@@ -225,8 +225,8 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	}
 
 	@Override
-	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) throws Exception {
-		return cuentasLogica.consultarCuentasPorCliente(idCliente);
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente, String cueActiva) throws Exception {
+		return cuentasLogica.consultarCuentasPorCliente(idCliente, cueActiva);
 	}
 
 	@Override

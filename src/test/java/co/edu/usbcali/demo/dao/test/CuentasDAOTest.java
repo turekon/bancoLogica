@@ -87,7 +87,7 @@ public class CuentasDAOTest {
 	@Test
 	@Transactional(readOnly=true)
 	public void fTest(){
-		List<Cuentas> lasCuentas = cuentasDAO.consultarCuentasPorCliente(this.idCliente);
+		List<Cuentas> lasCuentas = cuentasDAO.consultarCuentasPorCliente(this.idCliente, "S");
 		for (Cuentas cuentas : lasCuentas) {
 			log.info(cuentas.getClientes().getCliId() + " - " + cuentas.getClientes().getCliNombre() + " - " + cuentas.getCueNumero() + " - " + cuentas.getCueSaldo());
 		}

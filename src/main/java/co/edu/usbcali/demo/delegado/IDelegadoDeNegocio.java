@@ -84,7 +84,7 @@ public interface IDelegadoDeNegocio {
 
 	public List<Consignaciones> consultarTodosConsignaciones() throws Exception;
 
-	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) throws Exception;
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente, String cueActiva) throws Exception;
 
 	public List<Usuarios> consultarUsuariosPorTipoUsuario(Long tusuCodigo) throws Exception;
 

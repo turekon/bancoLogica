@@ -11,5 +11,5 @@ public interface ICuentasDAO {
 	public void borrar(Cuentas cuentas);
 	public Cuentas consultarPorId(String id);
 	public List<Cuentas> consultarTodos();
-	public List<Cuentas> consultarCuentasPorCliente(Long idCliente);
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente, String cueActiva);
 }

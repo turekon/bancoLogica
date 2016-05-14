@@ -1,5 +1,6 @@
 package co.edu.usbcali.demo.logica;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.IConsignacionesDAO;
+import co.edu.usbcali.demo.dao.ICuentasDAO;
 import co.edu.usbcali.demo.modelo.Consignaciones;
 import co.edu.usbcali.demo.modelo.ConsignacionesId;
 import co.edu.usbcali.demo.modelo.Cuentas;
@@ -37,6 +39,7 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	
 	@Autowired
 	private ICuentasLogica cuentasLogica;
+	
 	
 	private void validador(Consignaciones entity) throws Exception {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -78,10 +81,21 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 			throw new Exception("La cuenta no existe");
 		}
 		
+		if (cuentas.getCueActiva().trim().equals("N")) {
+			throw new Exception("La cuenta se encuentra inactiva");
+		}
+		
 		consignaciones.setUsuarios(usuarios);
 		consignaciones.setCuentas(cuentas);
 		
 		consignacionesDAO.grabar(consignaciones);
+		
+		Long saldoActual = cuentas.getCueSaldo().longValue();
+		saldoActual = saldoActual + consignaciones.getConValor().longValue();
+		
+		cuentas.setCueSaldo(new BigDecimal(saldoActual));
+		
+		cuentasLogica.modificar(cuentas);
 	}
 
 	@Override

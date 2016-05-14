@@ -44,8 +44,11 @@ public class CuentasHibernateDAO implements ICuentasDAO {
 	}
 	
 	@Override
-	public List<Cuentas> consultarCuentasPorCliente(Long idCliente) {
-		return sessionFactory.getCurrentSession().createCriteria(Cuentas.class).add(Restrictions.eq("clientes.cliId", idCliente)).list();
+	public List<Cuentas> consultarCuentasPorCliente(Long idCliente, String cueActiva) {
+		return sessionFactory.getCurrentSession().createCriteria(Cuentas.class)
+				.add(Restrictions.eq("clientes.cliId", idCliente))
+				.add(Restrictions.eq("cueActiva", cueActiva))
+				.list();
 	}
 
 }

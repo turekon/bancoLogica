@@ -38,7 +38,7 @@ public class CuentasLogicTest {
 	private Long idCliente = 101234L;
 	
 	@Test
-	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void aTest() throws Exception {
 		Cuentas cuentas = new Cuentas();
 		cuentas.setClientes(clienteLogica.consultarPorId(this.idCliente));
@@ -88,7 +88,7 @@ public class CuentasLogicTest {
 	@Test
 	@Transactional(readOnly=true)
 	public void fTest() throws Exception {
-		List<Cuentas> lasCuentas = cuentasLogica.consultarCuentasPorCliente(this.idCliente);
+		List<Cuentas> lasCuentas = cuentasLogica.consultarCuentasPorCliente(this.idCliente, "S");
 		for (Cuentas cuentas : lasCuentas) {
 			log.info(cuentas.getClientes().getCliId() + " - " + cuentas.getClientes().getCliNombre() + " - " + cuentas.getCueNumero() + " - " + cuentas.getCueSaldo());
 		}

@@ -1,5 +1,6 @@
 package co.edu.usbcali.demo.logica;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -61,15 +62,6 @@ public class RetirosLogica implements IRetirosLogica {
 		
 		validador(retiros);
 		
-		if (retiros.getCuentas() == null) {
-			throw new Exception("La cuenta del retiro es obligatorio");
-		}
-		
-		Cuentas cuentas = cuentasLogica.consultarPorId(retiros.getCuentas().getCueNumero());
-		if (cuentas == null) {
-			throw new Exception("La cuenta no existe");
-		}
-		
 		if (retiros.getUsuarios() == null) {
 			throw new Exception("El usuario del retiro es obligatorio");
 		}
@@ -79,10 +71,38 @@ public class RetirosLogica implements IRetirosLogica {
 			throw new Exception("El usuario no existe");
 		}
 		
+		if (retiros.getCuentas() == null) {
+			throw new Exception("La cuenta del retiro es obligatorio");
+		}
+		
+		Cuentas cuentas = cuentasLogica.consultarPorId(retiros.getCuentas().getCueNumero());
+		if (cuentas == null) {
+			throw new Exception("La cuenta no existe");
+		}
+		
+		if (cuentas.getCueActiva().trim().equals("N")) {
+			throw new Exception("La cuenta no se encuentra activa");
+		}
+		
+		if (cuentas.getCueSaldo().compareTo(BigDecimal.ZERO) <= 0) {
+			throw new Exception("La cuenta tiene saldo cero");
+		}
+		
+		if (cuentas.getCueSaldo().compareTo(retiros.getRetValor()) < 0) {
+			throw new Exception("El saldo de la cuenta es menor al valor del retiro");
+		}
+		
 		retiros.setCuentas(cuentas);
 		retiros.setUsuarios(usuarios);
 		
 		retirosDAO.grabar(retiros);
+		
+		Long saldoActual = cuentas.getCueSaldo().longValue();
+		saldoActual = saldoActual - retiros.getRetValor().longValue();
+		
+		cuentas.setCueSaldo(new BigDecimal(saldoActual));
+		
+		cuentasLogica.modificar(cuentas);
 		
 	}
 
