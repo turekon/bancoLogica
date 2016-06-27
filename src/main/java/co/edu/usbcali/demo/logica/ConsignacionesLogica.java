@@ -132,7 +132,8 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	public void borrar(Consignaciones consignaciones) throws Exception {
 		Consignaciones entity = consignacionesDAO.consultarPorId(consignaciones.getId());
 		
-		if (entity == null) {
+		if (entity == null) 
+		{
 			throw new Exception("La consignación que desea eliminar no existe.");
 		}
 		
