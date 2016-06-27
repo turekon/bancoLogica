@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 4, 2016 10:21:41 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.demo.modelo.Usuarios" table="usuarios" schema="public">
+        <id name="usuCedula" type="long">
+            <column name="usu_cedula" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tiposUsuarios" class="co.edu.usbcali.demo.modelo.TiposUsuarios" fetch="select">
+            <column name="tusu_codigo" precision="10" scale="0" />
+        </many-to-one>
+        <property name="usuNombre" type="string">
+            <column name="usu_nombre" length="50" not-null="true" />
+        </property>
+        <property name="usuLogin" type="string">
+            <column name="usu_login" length="30" not-null="true" />
+        </property>
+        <property name="usuClave" type="string">
+            <column name="usu_clave" length="50" not-null="true" />
+        </property>
+        <set name="consignacioneses" table="consignaciones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="usu_cedula" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.demo.modelo.Consignaciones" />
+        </set>
+        <set name="retiroses" table="retiros" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="usu_cedula" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.demo.modelo.Retiros" />
+        </set>
+    </class>
+</hibernate-mapping>
