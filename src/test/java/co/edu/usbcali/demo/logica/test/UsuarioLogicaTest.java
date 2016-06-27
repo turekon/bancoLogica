@@ -15,10 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.usbcali.demo.dao.IUsuarioDAO;
 import co.edu.usbcali.demo.logica.ITipoUsuarioLogica;
 import co.edu.usbcali.demo.logica.IUsuarioLogica;
-import co.edu.usbcali.demo.logica.TipoUsuarioLogica;
 import co.edu.usbcali.demo.modelo.Usuarios;
 
 @RunWith(SpringJUnit4ClassRunner.class)

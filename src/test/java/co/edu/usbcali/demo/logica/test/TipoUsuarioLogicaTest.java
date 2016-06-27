@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.usbcali.demo.dao.ITipoUsuarioDAO;
 import co.edu.usbcali.demo.logica.ITipoUsuarioLogica;
 import co.edu.usbcali.demo.modelo.TiposUsuarios;
 

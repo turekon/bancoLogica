@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.ITipoUsuarioDAO;
-import co.edu.usbcali.demo.logica.test.TipoDocumentoLogicaTest;
-import co.edu.usbcali.demo.modelo.TiposDocumentos;
 import co.edu.usbcali.demo.modelo.TiposUsuarios;
 
 @Service

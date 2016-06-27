@@ -1,6 +1,6 @@
 package co.edu.usbcali.demo.dao.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.usbcali.demo.dao.IClienteDAO;
 import co.edu.usbcali.demo.dao.IConsignacionesDAO;
 import co.edu.usbcali.demo.dao.ICuentasDAO;
 import co.edu.usbcali.demo.dao.IUsuarioDAO;
@@ -43,7 +42,6 @@ public class ConsignacionesDAOTest {
 	
 	private Long idCon = 99L;
 	private String idCuenta = "4008-5305-0010";
-	private long idUsuario = 10L;
 	
 	@Test
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)

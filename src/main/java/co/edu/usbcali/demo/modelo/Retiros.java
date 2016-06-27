@@ -4,7 +4,6 @@ package co.edu.usbcali.demo.modelo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 

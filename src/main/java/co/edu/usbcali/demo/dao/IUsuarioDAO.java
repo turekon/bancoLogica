@@ -2,7 +2,6 @@ package co.edu.usbcali.demo.dao;
 
 import java.util.List;
 
-import co.edu.usbcali.demo.modelo.TiposUsuarios;
 import co.edu.usbcali.demo.modelo.Usuarios;
 
 public interface IUsuarioDAO {

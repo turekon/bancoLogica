@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.demo.dao.IConsignacionesDAO;
-import co.edu.usbcali.demo.dao.ICuentasDAO;
 import co.edu.usbcali.demo.modelo.Consignaciones;
 import co.edu.usbcali.demo.modelo.ConsignacionesId;
 import co.edu.usbcali.demo.modelo.Cuentas;

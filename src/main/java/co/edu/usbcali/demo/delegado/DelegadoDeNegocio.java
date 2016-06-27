@@ -13,7 +13,6 @@ import co.edu.usbcali.demo.logica.IRetirosLogica;
 import co.edu.usbcali.demo.logica.ITipoDocumentoLogica;
 import co.edu.usbcali.demo.logica.ITipoUsuarioLogica;
 import co.edu.usbcali.demo.logica.IUsuarioLogica;
-import co.edu.usbcali.demo.logica.UsuarioLogica;
 import co.edu.usbcali.demo.modelo.Clientes;
 import co.edu.usbcali.demo.modelo.Consignaciones;
 import co.edu.usbcali.demo.modelo.ConsignacionesId;

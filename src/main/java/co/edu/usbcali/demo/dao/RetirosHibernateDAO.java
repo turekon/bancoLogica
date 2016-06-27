@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import co.edu.usbcali.demo.modelo.Consignaciones;
 import co.edu.usbcali.demo.modelo.Retiros;
 import co.edu.usbcali.demo.modelo.RetirosId;
 

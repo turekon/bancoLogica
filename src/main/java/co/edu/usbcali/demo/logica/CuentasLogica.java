@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import co.edu.usbcali.demo.dao.ICuentasDAO;
 import co.edu.usbcali.demo.modelo.Clientes;
 import co.edu.usbcali.demo.modelo.Cuentas;
-import co.edu.usbcali.demo.modelo.Usuarios;
 
 @Service
 @Scope("singleton")

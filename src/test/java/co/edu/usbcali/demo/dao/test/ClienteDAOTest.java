@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import co.edu.usbcali.demo.dao.IClienteDAO;
 import co.edu.usbcali.demo.dao.ITipoDocumentoDAO;
 import co.edu.usbcali.demo.modelo.Clientes;
-import co.edu.usbcali.demo.modelo.TiposDocumentos;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
