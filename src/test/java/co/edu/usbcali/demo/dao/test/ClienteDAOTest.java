@@ -20,7 +20,7 @@ import co.edu.usbcali.demo.dao.ITipoDocumentoDAO;
 import co.edu.usbcali.demo.modelo.Clientes;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/applicationContext.xml")
+@ContextConfiguration("/applicationContext.xml")
 @Rollback(false)
 public class ClienteDAOTest {
 	
