@@ -39,6 +39,7 @@ public class ConsignacionesHibernateDAO implements IConsignacionesDAO {
 		return sessionFactory.getCurrentSession().get(Consignaciones.class, consignacionesId);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Consignaciones> consultarTodos() {
 		return sessionFactory.getCurrentSession().createCriteria(Consignaciones.class).list();
