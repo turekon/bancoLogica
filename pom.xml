@@ -102,10 +102,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<testResources>
-			<testResource>
-				<directory>src/main/webapp</directory>
-			</testResource>
-		</testResources>
 	</build>
 </project>
