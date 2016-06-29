@@ -14,19 +14,19 @@
 		<property name="password" value="postgres" />
 	</bean>  --> 
 	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://192.168.33.10:5432/banco" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
-	</bean>
+	</bean>-->
 	
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://bancousb.cvj9hpkyi5vz.us-west-2.rds.amazonaws.com:5432/banco" />
+		<property name="url" value="jdbc:postgresql://banco.cvj9hpkyi5vz.us-west-2.rds.amazonaws.com:5432/banco" />
 		<property name="username" value="postgres" />
 		<property name="password" value="adminadmin" />
-	</bean> -->
+	</bean>
 	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
