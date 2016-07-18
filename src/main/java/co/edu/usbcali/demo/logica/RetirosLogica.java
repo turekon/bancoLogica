@@ -15,7 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.edu.usbcali.demo.dao.IRetirosDAO;
+import co.edu.usbcali.demo.dto.OperacionesDTO;
+import co.edu.usbcali.demo.modelo.Clientes;
 import co.edu.usbcali.demo.modelo.Cuentas;
 import co.edu.usbcali.demo.modelo.Retiros;
 import co.edu.usbcali.demo.modelo.RetirosId;
@@ -38,6 +44,9 @@ public class RetirosLogica implements IRetirosLogica {
 	
 	@Autowired
 	private IUsuarioLogica usuarioLogica;
+	
+	@Autowired 
+	private IClienteLogica clientesLogica;
 	
 	private void validador(Retiros entity) throws Exception {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -103,6 +112,9 @@ public class RetirosLogica implements IRetirosLogica {
 		cuentas.setCueSaldo(new BigDecimal(saldoActual));
 		
 		cuentasLogica.modificar(cuentas);
+		
+		//notificar a la cola de mensajería
+		this.reportarRetiro(retiros);
 		
 	}
 
@@ -170,6 +182,39 @@ public class RetirosLogica implements IRetirosLogica {
 	@Transactional(readOnly=true)
 	public Long consultarMaxConsecutivo(String cueNumero) throws Exception {
 		return retirosDAO.consultarMaxConsecutivo(cueNumero);
+	}
+
+	@Override
+	public void reportarRetiro(Retiros retiros) throws Exception {
+		// armar objeto retirosDTO		
+		Clientes clientes = clientesLogica.consultarPorId(retiros.getCuentas().getClientes().getCliId());
+		
+		OperacionesDTO retirosDTO = new OperacionesDTO();
+		retirosDTO.setCajeroIdentificacion(retiros.getUsuarios().getUsuCedula());
+		retirosDTO.setCajeroLogin(retiros.getUsuarios().getUsuLogin());
+		retirosDTO.setCajeroNombre(retiros.getUsuarios().getUsuNombre());
+		retirosDTO.setClienteIdentificacion(clientes.getCliId());
+		retirosDTO.setClienteNombre(clientes.getCliNombre());
+		retirosDTO.setCodigoOperacion(retiros.getId().getRetCodigo());
+		retirosDTO.setCuentaNumero(retiros.getCuentas().getCueNumero());
+		retirosDTO.setCuentaSaldo(retiros.getCuentas().getCueSaldo());
+		retirosDTO.setDescripcionOperacion(retiros.getRetDescripcion());
+		retirosDTO.setFechaOperacion(retiros.getRetFecha());
+		retirosDTO.setTipoOperacion("retiro");
+		retirosDTO.setValorOperacion(retiros.getRetValor());
+		
+		//convertir a Json.
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonInString = objectMapper.writeValueAsString(retirosDTO);
+		log.info(jsonInString);
+		
+		//reportar a la cola de mensajería.
+		try {
+			SqsOperaciones sqsOperaciones = new SqsOperaciones();
+			sqsOperaciones.enviarMensajeALaCola(jsonInString);
+        } catch (Exception ace) {
+            log.info("Error Message: " + ace.getMessage());
+        }
 	}
 
 }

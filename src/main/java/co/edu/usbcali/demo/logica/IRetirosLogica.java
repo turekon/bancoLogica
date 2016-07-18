@@ -15,4 +15,5 @@ public interface IRetirosLogica {
 	public List<Retiros> consultarTodos() throws Exception;
 	public Long consultarMaxConsecutivo() throws Exception;
 	public Long consultarMaxConsecutivo(String cueNumero) throws Exception;
+	public void reportarRetiro(Retiros retiros) throws Exception;
 }

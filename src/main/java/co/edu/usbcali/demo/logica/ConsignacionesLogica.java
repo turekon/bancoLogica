@@ -15,10 +15,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.edu.usbcali.demo.dao.IConsignacionesDAO;
+import co.edu.usbcali.demo.dto.OperacionesDTO;
+import co.edu.usbcali.demo.modelo.Clientes;
 import co.edu.usbcali.demo.modelo.Consignaciones;
 import co.edu.usbcali.demo.modelo.ConsignacionesId;
 import co.edu.usbcali.demo.modelo.Cuentas;
+import co.edu.usbcali.demo.modelo.Retiros;
 import co.edu.usbcali.demo.modelo.Usuarios;
 
 @Service
@@ -39,6 +44,8 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	@Autowired
 	private ICuentasLogica cuentasLogica;
 	
+	@Autowired 
+	private IClienteLogica clientesLogica;
 	
 	private void validador(Consignaciones entity) throws Exception {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -95,6 +102,9 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 		cuentas.setCueSaldo(new BigDecimal(saldoActual));
 		
 		cuentasLogica.modificar(cuentas);
+		
+		//reportar Consignacion a la cola de mensajería
+		this.reportarConsignacion(consignaciones);
 	}
 
 	@Override
@@ -161,6 +171,39 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	@Transactional(readOnly=true)
 	public Long consultarMaxConsecutivo(String cueNumero) throws Exception {
 		return consignacionesDAO.consultarMaxConsecutivo(cueNumero);
+	}
+
+	@Override
+	public void reportarConsignacion(Consignaciones consignaciones) throws Exception {
+		// armar objeto retirosDTO		
+		Clientes clientes = clientesLogica.consultarPorId(consignaciones.getCuentas().getClientes().getCliId());
+		
+		OperacionesDTO consignacionesDTO = new OperacionesDTO();
+		consignacionesDTO.setCajeroIdentificacion(consignaciones.getUsuarios().getUsuCedula());
+		consignacionesDTO.setCajeroLogin(consignaciones.getUsuarios().getUsuLogin());
+		consignacionesDTO.setCajeroNombre(consignaciones.getUsuarios().getUsuNombre());
+		consignacionesDTO.setClienteIdentificacion(clientes.getCliId());
+		consignacionesDTO.setClienteNombre(clientes.getCliNombre());
+		consignacionesDTO.setCodigoOperacion(consignaciones.getId().getConCodigo());
+		consignacionesDTO.setCuentaNumero(consignaciones.getCuentas().getCueNumero());
+		consignacionesDTO.setCuentaSaldo(consignaciones.getCuentas().getCueSaldo());
+		consignacionesDTO.setDescripcionOperacion(consignaciones.getConDescripcion());
+		consignacionesDTO.setFechaOperacion(consignaciones.getConFecha());
+		consignacionesDTO.setTipoOperacion("consignacion");
+		consignacionesDTO.setValorOperacion(consignaciones.getConValor());
+		
+		//convertir a Json.
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonInString = objectMapper.writeValueAsString(consignacionesDTO);
+		log.info(jsonInString);
+		
+		//reportar a la cola de mensajería.
+		try {
+			SqsOperaciones sqsOperaciones = new SqsOperaciones();
+			sqsOperaciones.enviarMensajeALaCola(jsonInString);
+        } catch (Exception ace) {
+            log.info("Error Message: " + ace.getMessage());
+        }
 	}
 
 }

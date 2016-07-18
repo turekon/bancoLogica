@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.edu.usbcali.demo.modelo.Consignaciones;
 import co.edu.usbcali.demo.modelo.ConsignacionesId;
+import co.edu.usbcali.demo.modelo.Retiros;
 
 public interface IConsignacionesLogica {
 	
@@ -14,4 +15,5 @@ public interface IConsignacionesLogica {
 	public List<Consignaciones> consultarTodos() throws Exception;
 	public Long consultarMaxConsecutivo() throws Exception;
 	public Long consultarMaxConsecutivo(String cueNumero) throws Exception;
+	public void reportarConsignacion(Consignaciones consignaciones) throws Exception;
 }

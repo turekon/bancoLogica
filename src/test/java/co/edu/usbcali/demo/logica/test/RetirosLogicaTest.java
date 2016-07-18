@@ -1,6 +1,6 @@
 package co.edu.usbcali.demo.logica.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,9 +17,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClient;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import co.edu.usbcali.demo.dto.OperacionesDTO;
+import co.edu.usbcali.demo.logica.IClienteLogica;
 import co.edu.usbcali.demo.logica.ICuentasLogica;
 import co.edu.usbcali.demo.logica.IRetirosLogica;
 import co.edu.usbcali.demo.logica.IUsuarioLogica;
+import co.edu.usbcali.demo.modelo.Clientes;
 import co.edu.usbcali.demo.modelo.Retiros;
 import co.edu.usbcali.demo.modelo.RetirosId;
 
@@ -38,6 +50,9 @@ public class RetirosLogicaTest {
 	
 	@Autowired
 	private ICuentasLogica cuentasLogica;
+	
+	@Autowired 
+	private IClienteLogica clientesLogica;
 	
 	private Long retirosID = 99L;
 	private String cuentaNumero = "4008-5305-0020";
@@ -89,6 +104,22 @@ public class RetirosLogicaTest {
 		for (Retiros retiros : losRetiros) {
 			log.info(retiros.getCuentas().getCueNumero() + " - " + retiros.getRetDescripcion() + " - " + retiros.getRetValor());
 		}
+	}
+	
+	@Test
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public void fTest() throws Exception {
+		Retiros retiros = new Retiros();
+		retiros.setCuentas(cuentasLogica.consultarPorId(this.cuentaNumero));
+		retiros.setId(new RetirosId(this.retirosID, this.cuentaNumero));
+		retiros.setRetDescripcion("Retiro de prueba JUnit y notificación Amazon SQS");
+		retiros.setRetFecha(new Date());
+		retiros.setRetValor(new BigDecimal(40000));
+		retiros.setUsuarios(usuarioLogica.consultarPorId(this.usuarioCedula));
+		
+		// notificar a Amazon SQS
+		retirosLogica.reportarRetiro(retiros);
+
 	}
 
 }
