@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
@@ -26,14 +27,19 @@ public class SqsOperaciones {
 	public void enviarMensajeALaCola(String message) throws Exception {
 		credentials = null;
         try {
-//            credentials = new ProfileCredentialsProvider("default").getCredentials();
-            credentials = new ProfileCredentialsProvider().getCredentials();
+        	log.info("se intenta cargar las credenciales desde archivo");
+            credentials = new ProfileCredentialsProvider("default").getCredentials();
         } catch (Exception e) {
-            throw new AmazonClientException(
-                    "Cannot load the credentials from the credential profiles file. " +
-                    "Please make sure that your credentials file is at the correct " +
-                    "location (/Users/actual_user/.aws/credentials), and is in valid format.",
-                    e);
+        	try {
+        		log.info("Se buscan las credenciales en variables de entorno");
+				credentials = new EnvironmentVariableCredentialsProvider().getCredentials();
+			} catch (Exception e1) {
+				throw new AmazonClientException(
+					"Cannot load the credentials from the credential profiles file. " +
+					"Please make sure that your credentials file is at the correct " +
+					"location (/Users/actual_user/.aws/credentials), and is in valid format.",
+					e);
+			}
         }
         
 		try {
